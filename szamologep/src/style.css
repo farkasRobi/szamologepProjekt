@@ -48,3 +48,15 @@ button:hover {
 button.zero {
   grid-column: span 2;
 }
+.placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+}
