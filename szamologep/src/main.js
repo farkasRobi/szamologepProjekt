@@ -39,7 +39,7 @@ buttons.forEach((btn) => {
 
   if (op !== null) {
     btn.addEventListener("click", () => {
-      const displayOp = op === "*" ? "×" : op === "/";
+      const displayOp = op === "*" ? "×" : op === "/" ? "÷" : op;
       expression += " " + op + " ";
       displayExpression += " " + displayOp + " ";
       updateDisplay();
