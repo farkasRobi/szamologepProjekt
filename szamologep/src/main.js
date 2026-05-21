@@ -2,9 +2,10 @@ const display = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
 
 let expression = "";
+let displayExpression = "";
 
 function updateDisplay() {
-  display.textContent = expression || "0";
+  display.textContent = displayExpression || "0";
 }
 
 function calculateExpression(expression) {
@@ -17,6 +18,8 @@ function calculateExpression(expression) {
 
     if (op === "+") result += num;
     if (op === "-") result -= num;
+    if (op === "*") result *= num;
+    if (op === "/") result /= num;
   }
   return result;
 }
@@ -29,23 +32,26 @@ buttons.forEach((btn) => {
   if (num !== null) {
     btn.addEventListener("click", () => {
       expression += num;
+      displayExpression += num;
       updateDisplay();
     });
   }
 
   if (op !== null) {
-    if (op === "+" || op === "-") {
-      btn.addEventListener("click", () => {
-        expression += " " + op + " ";
-        updateDisplay();
-      });
-    }
+    btn.addEventListener("click", () => {
+      const displayOp = op === "*" ? "×" : op === "/";
+      expression += " " + op + " ";
+      displayExpression += " " + displayOp + " ";
+      updateDisplay();
+    });
   }
 
   if (action === "equals") {
     btn.addEventListener("click", () => {
       const result = calculateExpression(expression);
-      expression = isNaN(result) ? "Hiba" : result.toString();
+      const resultStr = isNaN(result) ? "Hiba" : result.toString();
+      expression = resultStr;
+      displayExpression = resultStr;
       updateDisplay();
     });
   }
@@ -53,6 +59,7 @@ buttons.forEach((btn) => {
   if (action === "clear") {
     btn.addEventListener("click", () => {
       expression = "";
+      displayExpression = "";
       updateDisplay();
     });
   }
@@ -60,6 +67,7 @@ buttons.forEach((btn) => {
   if (action === "dot") {
     btn.addEventListener("click", () => {
       expression += ".";
+      displayExpression += ".";
       updateDisplay();
     });
   }
