@@ -2,6 +2,9 @@ const functions = {
   sin: Math.sin,
   cos: Math.cos,
   tan: Math.tan,
+  asin: Math.asin,
+  acos: Math.acos,
+  atan: Math.atan,
 };
 
 function parseOperand(parts, index) {
@@ -22,7 +25,12 @@ function parseOperand(parts, index) {
 }
 
 export function calculateExpression(expression) {
-  const parts = expression.split(" ").filter(Boolean);
+  const normalized = expression
+    .replace(/sin-1/g, 'asin')
+    .replace(/cos-1/g, 'acos')
+    .replace(/tan-1/g, 'atan');
+
+  const parts = normalized.split(" ").filter(Boolean);
   if (parts.length === 0) {
     return NaN;
   }

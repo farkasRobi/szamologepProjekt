@@ -17,4 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   assertEqual('calculateExpression sin 0', calculateExpression('sin 0'), 0);
   assertEqual('calculateExpression cos 0', calculateExpression('cos 0'), 1);
   assertEqual('calculateExpression tan 0', calculateExpression('tan 0'), 0);
+  assertEqual('calculateExpression asin 0', calculateExpression('asin 0'), 0);
+  assertEqual('calculateExpression acos 1', calculateExpression('acos 1'), 0);
+  assertEqual('calculateExpression atan 0', calculateExpression('atan 0'), 0);
+  assertEqual('calculateExpression sin-1 0', calculateExpression('sin-1 0'), 0);
 });

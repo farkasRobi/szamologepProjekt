@@ -45,6 +45,16 @@ button:hover {
   background: #e6e6e6;
 }
 
+#shiftBtn.active {
+  background: #ffeaa7;
+  border-color: #e6b800;
+}
+
+.shifted {
+  color: #1e90ff;
+  font-weight: 600;
+}
+
 button.zero {
   grid-column: span 2;
 }
