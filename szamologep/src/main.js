@@ -1,3 +1,5 @@
+import { calculateExpression } from './calc.js';
+
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
 
@@ -6,22 +8,6 @@ let displayExpression = "";
 
 function updateDisplay() {
   display.textContent = displayExpression || "0";
-}
-
-function calculateExpression(expression) {
-  const parts = expression.split(" ");
-  let result = parseFloat(parts[0]);
-
-  for (let i = 1; i < parts.length; i += 2) {
-    const op = parts[i];
-    const num = parseFloat(parts[i + 1]);
-
-    if (op === "+") result += num;
-    if (op === "-") result -= num;
-    if (op === "*") result *= num;
-    if (op === "/") result /= num;
-  }
-  return result;
 }
 
 buttons.forEach((btn) => {
@@ -39,7 +25,7 @@ buttons.forEach((btn) => {
 
   if (op !== null) {
     btn.addEventListener("click", () => {
-      const displayOp = op === "*" ? "×" : op === "/";
+      const displayOp = op === "*" ? "×" : op === "/" ? "÷" : op;
       expression += " " + op + " ";
       displayExpression += " " + displayOp + " ";
       updateDisplay();
