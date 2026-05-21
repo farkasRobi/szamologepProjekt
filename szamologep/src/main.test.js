@@ -14,4 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   assertEqual('calculateExpression 3 * 5', calculateExpression('3 * 5'), 15);
   assertEqual('calculateExpression 12 / 4', calculateExpression('12 / 4'), 3);
   assertEqual('calculateExpression decimal', calculateExpression('1.5 + 2.5'), 4);
+  assertEqual('calculateExpression sin 0', calculateExpression('sin 0'), 0);
+  assertEqual('calculateExpression cos 0', calculateExpression('cos 0'), 1);
+  assertEqual('calculateExpression tan 0', calculateExpression('tan 0'), 0);
 });

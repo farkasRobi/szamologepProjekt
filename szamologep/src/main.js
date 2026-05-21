@@ -57,6 +57,26 @@ buttons.forEach((btn) => {
       updateDisplay();
     });
   }
+
+  if (action === "sin" || action === "cos" || action === "tan") {
+    btn.addEventListener("click", () => {
+      const value = parseFloat(expression);
+      let result;
+      if (action === "sin"){
+        result = Math.sin(value);
+      }
+      if (action === "cos"){
+        result = Math.cos(value);
+      }
+      if (action === "tan"){
+        result = Math.tan(value);
+      }
+      const resultStr = isNaN(result) ? "Hiba" : result.toString();
+      expression = resultStr;
+      displayExpression = `${resultStr}`;
+      updateDisplay();
+    });
+  }
 });
 
 updateDisplay();
