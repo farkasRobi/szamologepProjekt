@@ -1,72 +1,103 @@
 body {
-  background: #f0f0f0;
-  font-family: Arial, sans-serif;
+  background: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  padding: 20px;
 }
 
 .calculator {
   background: white;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 220px;
+  padding: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 18px;
+  width: min(360px, 100%);
 }
 
 .display {
-  background: #eee;
-  padding: 10px;
-  font-size: 24px;
+  background: white;
+  padding: 16px;
+  font-size: 30px;
   text-align: right;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-bottom: 14px;
+  border: 1px solid grey;
+  border-radius: 16px;
+  min-height: 64px;
+  color: black;
+  word-break: break-word;
 }
 
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
 }
 
 button {
-  padding: 10px;
-  font-size: 18px;
-  border: 1px solid #bbb;
-  background: #fafafa;
+  padding: 14px 12px;
+  font-size: 16px;
+  border: 1px solid #d1d5db;
+  background: white;
+  color: black;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 14px;
+  transition: background 0.12s ease, border-color 0.12s ease;
 }
 
 button:hover {
-  background: #e6e6e6;
+  background: #eff2f7;
 }
 
+button[data-action='equals'] {
+  background: #4338ca;
+  color: white;
+  border-color: #4338ca;
+}
+
+button[data-action='clear'],
+button[data-action='backspace'] {
+  background: white;
+}
+
+button[data-op='sin'],
+button[data-op='cos'],
+button[data-op='tan'],
+button[data-op='log'],
+button[data-op='sqrt'],
+button[data-op='^'],
+button[data-op='pow2'] {
+  background: white;
+}
+
+button[data-action='shift'] {
+  background: white;
+}
+
+button[data-action='shift'].active,
 #shiftBtn.active {
-  background: #ffeaa7;
-  border-color: #e6b800;
+  background: #fca5a5;
+  color: darkred;
+  border-color: #fca5a5;
 }
 
-.shifted {
-  color: #1e90ff;
-  font-weight: 600;
-}
-
-button.zero {
+button.wide {
   grid-column: span 2;
 }
+
 .placement {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .title {
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   font-size: 26px;
-  font-weight: bold;
+  font-weight: 600;
   text-align: center;
+  color: black;
 }
