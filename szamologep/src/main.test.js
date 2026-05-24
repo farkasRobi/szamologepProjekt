@@ -21,4 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
   assertEqual('calculateExpression acos 1', calculateExpression('acos 1'), 0);
   assertEqual('calculateExpression atan 0', calculateExpression('atan 0'), 0);
   assertEqual('calculateExpression sin-1 0', calculateExpression('sin-1 0'), 0);
+  assertEqual('calculateExpression sin(0)', calculateExpression('sin(0)'), 0);
+  assertEqual('calculateExpression cos(0)', calculateExpression('cos(0)'), 1);
+  assertEqual('calculateExpression 3 * (2 + 1)', calculateExpression('3 * (2 + 1)'), 9);
+  assertEqual('calculateExpression sin(0) + 1', calculateExpression('sin(0) + 1'), 1);
+  assertEqual('calculateExpression 2 ^ 3', calculateExpression('2 ^ 3'), 8);
+  assertEqual('calculateExpression sqrt(9)', calculateExpression('sqrt(9)'), 3);
+  assertEqual('calculateExpression cbrt(27)', calculateExpression('cbrt(27)'), 3);
+  assertEqual('calculateExpression root(2,9)', calculateExpression('root(2,9)'), 3);
+  assertEqual('calculateExpression pi', calculateExpression('pi'), Math.PI);
+  assertEqual('calculateExpression 10 ^ 2', calculateExpression('10 ^ 2'), 100);
 });

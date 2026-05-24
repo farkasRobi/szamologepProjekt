@@ -12,29 +12,36 @@
     <div class="calculator">
       <div id="display" class="display">0</div>
       <div class="buttons">
-        <button data-op="sin">sin</button>
-          <button data-op="cos">cos</button>
-          <button data-op="tan">tan</button>
-          <button data-action="shift" id="shift" class="wide">shift</button>
-          <button data-op="log">log</button>
-          <button data-num="9">9</button>
-          <button data-num="8">8</button>
-          <button data-num="7">7</button>
-          <button data-action="clear" class="wide">C</button>
-          <button data-num="6">6</button>
-          <button data-num="5">5</button>
-          <button data-num="4">4</button>
-          <button data-op="-">-</button>
-          <button data-num="3">3</button>
-          <button data-num="2">2</button>
-          <button data-num="1">1</button>
-          <button data-op="+">+</button>
-          <button data-op="*">×</button>
-          <button data-op="/">/</button>
-          <button data-num="0">0</button>
-          <button data-action="dot">.</button>
-          <button data-action="equals" class="wide">=</button>
-    </div>
+        <button data-op="sin" data-original-op="sin" data-shift-op="asin" data-label="sin" data-shift-label="sin⁻¹">sin</button>
+        <button data-op="cos" data-original-op="cos" data-shift-op="acos" data-label="cos" data-shift-label="cos⁻¹">cos</button>
+        <button data-op="tan" data-original-op="tan" data-shift-op="atan" data-label="tan" data-shift-label="tan⁻¹">tan</button>
+        <button data-action="shift" id="shiftBtn" class="wide">shift</button>
+        <button data-op="log" data-original-op="log" data-shift-op="pow10" data-label="log" data-shift-label="10^x">log</button>
+        <button data-op="pow2" data-original-op="pow2" data-shift-op="pow3" data-label="x²" data-shift-label="x³">x²</button>
+        <button data-op="sqrt" data-original-op="sqrt" data-shift-op="cbrt" data-label="√" data-shift-label="∛">√</button>
+        <button data-op="^" data-original-op="^" data-shift-op="root" data-label="y^x" data-shift-label="x√y">y^x</button>
+        <button data-num="7">7</button>
+        <button data-num="8">8</button>
+        <button data-num="9">9</button>
+        <button data-op="/">÷</button>
+        <button data-num="4">4</button>
+        <button data-num="5">5</button>
+        <button data-num="6">6</button>
+        <button data-op="*">x</button>
+        <button data-num="1">1</button>
+        <button data-num="2">2</button>
+        <button data-num="3">3</button>
+        <button data-op="-">-</button>
+        <button data-num="0">0</button>
+        <button data-action="dot" data-original-action="dot" data-shift-action="rand" data-label="." data-shift-label="rand">.</button>
+        <button data-action="pi">π</button>
+        <button data-op="+">+</button>
+        <button data-action="open-paren">(</button>
+        <button data-action="close-paren">)</button>
+        <button data-action="backspace">⌫</button>
+        <button data-action="clear">C</button>
+        <button data-action="equals" class="wide">=</button>
+      </div>
     </div>
     </div>
     <script type="module" src="/src/main.js"></script>
