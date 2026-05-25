@@ -213,3 +213,38 @@ buttons.forEach((btn) => {
 });
 
 updateDisplay();
+document.addEventListener('keydown', (e) => {
+  const key = e.key;
+  if (!isNaN(key) && key !== ' ') {
+    appendToExpression(key);
+    return;
+  }
+
+  if (key === '+' || key === '-') {
+    handleOperator(key);
+    return;
+  }
+
+  if (key === 'Backspace') {
+    const functionPatterns = [
+      'asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(',
+      'log(', 'sqrt(', 'cbrt(', 'pow(', 'root('
+    ];
+
+    for (const pattern of functionPatterns) {
+      if (expression.endsWith(pattern)) {
+        expression = expression.slice(0, -pattern.length);
+        updateDisplay();
+        return;
+      }
+    }
+    if (expression.endsWith(' ')) {
+      expression = expression.slice(0, -3);
+    } else {
+      expression = expression.slice(0, -1);
+    }
+
+    updateDisplay();
+    return;
+  }
+});
