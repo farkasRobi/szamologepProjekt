@@ -225,6 +225,12 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
+  if (key === ',') {
+    expression = '';
+    updateDisplay();
+    return;
+  }
+
   if (key === 'Backspace') {
     const functionPatterns = [
       'asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(',
