@@ -3,6 +3,8 @@ import { calculateExpression } from './calc.js';
 const display = document.getElementById('display');
 const buttons = document.querySelectorAll('button');
 const shiftBtn = document.getElementById('shiftBtn');
+const historyList = document.getElementById('history-list');
+const historyListDel = document.getElementById('history-del');
 
 const shiftButtons = Array.from(buttons).filter((btn) => btn.dataset.shiftOp || btn.dataset.shiftAction);
 
@@ -12,6 +14,22 @@ let shiftActive = false;
 function updateDisplay() {
   display.textContent = (shiftActive ? '[SHIFT] ' : '') + (expression || '0');
 }
+
+function addToHistory(expression, result){
+  const historyItem = document.createElement('div');
+
+  historyItem.classList.add('history-item');
+
+  historyItem.innerHTML = `
+    <div class="history-expression">${expression}</div>
+    <div class="history-result">=${result}</div>
+    `;
+
+    historyList.prepend(historyItem);
+}
+historyListDel.addEventListener('click', () => {
+  historyList.innerHTML='';
+});
 
 function appendToExpression(value) {
   expression += value;
@@ -191,8 +209,10 @@ buttons.forEach((btn) => {
 
   if (action === 'equals') {
     btn.addEventListener('click', () => {
+      const originalExpression = expression;
       const result = calculateExpression(expression);
       const resultStr = isNaN(result) ? 'Hiba' : result.toString();
+      addToHistory(originalExpression, resultStr)
       expression = resultStr;
       updateDisplay();
     });
