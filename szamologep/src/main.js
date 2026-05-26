@@ -132,6 +132,19 @@ function handleOperator(op) {
     case '^':
       appendToExpression('^');
       break;
+    case 'graf': {
+      const n = parseFloat(expression);
+      if (!expression || isNaN(n) || n < 0 || !Number.isInteger(n)) {
+        expression = 'Hiba';
+        updateDisplay();
+        return;
+      }
+      const result = (n * (n - 1)) / 2;
+      addToHistory(`pont: ${n}, él`, result.toString());
+      expression = result.toString() + " élű";
+      updateDisplay();
+      break;
+    }
     default:
       appendToExpression((needsMultiplication ? '*' : '') + op);
   }
@@ -254,7 +267,6 @@ document.addEventListener('keydown', (e) => {
   if (key === 'Shift'){
     applyShiftMode(!shiftActive);
     return;
-    
       
   }
 
