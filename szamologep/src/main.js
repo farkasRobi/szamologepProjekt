@@ -12,7 +12,7 @@ let expression = '';
 let shiftActive = false;
 
 function updateDisplay() {
-  display.textContent = (shiftActive ? '[SHIFT] ' : '') + (expression || '0');
+  display.textContent = (expression || '0');
 }
 
 function addToHistory(expression, result){
@@ -249,6 +249,13 @@ document.addEventListener('keydown', (e) => {
     expression = '';
     updateDisplay();
     return;
+  }
+
+  if (key === 'Shift'){
+    applyShiftMode(!shiftActive);
+    return;
+    
+      
   }
 
   if (key === 'Backspace') {
