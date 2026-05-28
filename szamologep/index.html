@@ -25,7 +25,7 @@
         <button data-op="pow2" data-original-op="pow2" data-shift-op="pow3" data-label="x²" data-shift-label="x³">x²</button>
         <button data-op="sqrt" data-original-op="sqrt" data-shift-op="cbrt" data-label="√" data-shift-label="∛">√</button>
         <button data-op="^" data-original-op="^" data-shift-op="root" data-label="y^x" data-shift-label="x√y">y^x</button>
-        <button data-op="+">+</button>
+        <button data-op="+" data-original-op="+" data-shift-op="quad" data-label="+" data-shift-label="másod">+</button>
         <button data-op="-">-</button>
         <button data-num="9">9</button>
         <button data-num="8">8</button>
@@ -53,6 +53,16 @@
       <h2 class="history-title">Előzmények</h2>
       <div id="history-list" class="history-list"></div>
       <button id="history-del">Del</button>
+    <div id="quad-popup" class="popup hidden">
+        <div class="popup-content">
+          <h3>Másodfokú egyenlet</h3>
+          <label>a: <input type="number" id="quad-a"></label>
+          <label>b: <input type="number" id="quad-b"></label>
+          <label>c: <input type="number" id="quad-c"></label>
+          <button id="quad-calc">Szamolás</button>
+          <button id="quad-close">Bezár</button>
+        </div>
+    </div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
