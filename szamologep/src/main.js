@@ -145,6 +145,10 @@ function handleOperator(op) {
       updateDisplay();
       break;
     }
+    case 'graph' :{
+      window.location.href = "graph.html";
+      break;
+    }
     default:
       appendToExpression((needsMultiplication ? '*' : '') + op);
   }
