@@ -10,9 +10,32 @@ const shiftButtons = Array.from(buttons).filter((btn) => btn.dataset.shiftOp || 
 
 let expression = '';
 let shiftActive = false;
+let cursorPos = 0;
+
+function scrollCursorIntoView() {
+  const cursorEl = display.querySelector('.cursor');
+  if (!cursorEl) return;
+
+  const cursorX = cursorEl.offsetLeft;
+  const displayWidth = display.clientWidth;
+
+  if (cursorX < display.scrollLeft) {
+    display.scrollLeft = cursorX - 20;
+  } else if (cursorX > display.scrollLeft + displayWidth) {
+    display.scrollLeft = cursorX - displayWidth + 20;
+  }
+}
 
 function updateDisplay() {
-  display.textContent = (expression || '0');
+  const text = expression || '0';
+
+  cursorPos = Math.max(0, Math.min(cursorPos, text.length));
+
+  const before = text.slice(0, cursorPos);
+  const after = text.slice(cursorPos);
+
+  display.innerHTML = `${before}<span class="cursor"></span>${after}`;
+  scrollCursorIntoView();
 }
 
 function addToHistory(expression, result){
@@ -25,15 +48,44 @@ function addToHistory(expression, result){
     <div class="history-result">=${result}</div>
     `;
 
-    historyList.prepend(historyItem);
+  historyList.prepend(historyItem);
 }
+
 historyListDel.addEventListener('click', () => {
   historyList.innerHTML='';
 });
 
 function appendToExpression(value) {
-  expression += value;
+  expression =
+    expression.slice(0, cursorPos) +
+    value +
+    expression.slice(cursorPos);
+
+  cursorPos += value.length;
   updateDisplay();
+}
+
+function deleteAtCursor() {
+  const functionPatterns = ['asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(', 'log(', 'sqrt(', 'cbrt(', 'pow(', 'root('];
+
+  if (cursorPos === expression.length) {
+    for (const pattern of functionPatterns) {
+      if (expression.endsWith(pattern)) {
+        expression = expression.slice(0, -pattern.length);
+        cursorPos = expression.length;
+        updateDisplay();
+        return;
+      }
+    }
+  }
+
+  if (cursorPos > 0) {
+    expression =
+      expression.slice(0, cursorPos - 1) +
+      expression.slice(cursorPos);
+    cursorPos--;
+    updateDisplay();
+  }
 }
 
 function expressionEndsValue() {
@@ -41,7 +93,7 @@ function expressionEndsValue() {
 }
 
 function currentNumberSegment() {
-  let idx = expression.length - 1;
+  let idx = cursorPos - 1;
   let segment = '';
   while (idx >= 0) {
     const ch = expression[idx];
@@ -93,6 +145,7 @@ function applyShiftMode(active) {
 function replaceTrailingOperator(op) {
   if (/[+\-*/^]$/.test(expression)) {
     expression = expression.slice(0, -1) + op;
+    cursorPos = expression.length;
     updateDisplay();
     return true;
   }
@@ -104,7 +157,7 @@ function handleOperator(op) {
     if (expression === '' && op !== '-') {
       return;
     }
-    if (replaceTrailingOperator(op)) {
+    if (cursorPos === expression.length && replaceTrailingOperator(op)) {
       return;
     }
     appendToExpression(op);
@@ -136,17 +189,19 @@ function handleOperator(op) {
       const n = parseFloat(expression);
       if (!expression || isNaN(n) || n < 0 || !Number.isInteger(n)) {
         expression = 'Hiba';
+        cursorPos = expression.length;
         updateDisplay();
         return;
       }
       const result = (n * (n - 1)) / 2;
       addToHistory(`pont: ${n}, él`, result.toString());
-      expression = result.toString() + " élű";
+      expression = result.toString() + ' élű';
+      cursorPos = expression.length;
       updateDisplay();
       break;
     }
-    case 'graph' :{
-      window.location.href = "graph.html";
+    case 'graph': {
+      window.location.href = 'graph.html';
       break;
     }
     default:
@@ -199,21 +254,7 @@ buttons.forEach((btn) => {
 
   if (action === 'backspace') {
     btn.addEventListener('click', () => {
-      const functionPatterns = ['asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(', 'log(', 'sqrt(', 'cbrt(', 'pow(', 'root('];
-      for (const pattern of functionPatterns) {
-        if (expression.endsWith(pattern)) {
-          expression = expression.slice(0, -pattern.length);
-          updateDisplay();
-          return;
-        }
-      }
-
-      if (expression.endsWith(' ')) {
-        expression = expression.slice(0, -3);
-      } else {
-        expression = expression.slice(0, -1);
-      }
-      updateDisplay();
+      deleteAtCursor();
     });
   }
 
@@ -229,8 +270,9 @@ buttons.forEach((btn) => {
       const originalExpression = expression;
       const result = calculateExpression(expression);
       const resultStr = isNaN(result) ? 'Hiba' : result.toString();
-      addToHistory(originalExpression, resultStr)
+      addToHistory(originalExpression, resultStr);
       expression = resultStr;
+      cursorPos = expression.length;
       updateDisplay();
     });
   }
@@ -238,6 +280,7 @@ buttons.forEach((btn) => {
   if (action === 'clear') {
     btn.addEventListener('click', () => {
       expression = '';
+      cursorPos = 0;
       updateDisplay();
     });
   }
@@ -250,8 +293,10 @@ buttons.forEach((btn) => {
 });
 
 updateDisplay();
+
 document.addEventListener('keydown', (e) => {
   const key = e.key;
+
   if (!isNaN(key) && key !== ' ') {
     appendToExpression(key);
     return;
@@ -262,37 +307,31 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
-  if (key === ',') {
+  if (key === 'Delete') {
     expression = '';
+    cursorPos = 0;
     updateDisplay();
     return;
   }
 
-  if (key === 'Shift'){
+  if (key === 'Shift') {
     applyShiftMode(!shiftActive);
     return;
-      
   }
 
   if (key === 'Backspace') {
-    const functionPatterns = [
-      'asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(',
-      'log(', 'sqrt(', 'cbrt(', 'pow(', 'root('
-    ];
+    deleteAtCursor();
+    return;
+  }
 
-    for (const pattern of functionPatterns) {
-      if (expression.endsWith(pattern)) {
-        expression = expression.slice(0, -pattern.length);
-        updateDisplay();
-        return;
-      }
-    }
-    if (expression.endsWith(' ')) {
-      expression = expression.slice(0, -3);
-    } else {
-      expression = expression.slice(0, -1);
-    }
+  if (key === 'ArrowLeft') {
+    cursorPos = Math.max(0, cursorPos - 1);
+    updateDisplay();
+    return;
+  }
 
+  if (key === 'ArrowRight') {
+    cursorPos = Math.min(expression.length, cursorPos + 1);
     updateDisplay();
     return;
   }

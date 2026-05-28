@@ -400,3 +400,22 @@ button.zero {
     padding: 30px 16px 40px;
   }
 }
+
+.display {
+  overflow-x: auto;
+  white-space: nowrap;
+  position: relative;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: white;
+  animation: blink 0.8s steps(1) infinite;
+  vertical-align: bottom;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
