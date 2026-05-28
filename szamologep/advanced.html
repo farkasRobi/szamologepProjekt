@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matematikai segédoldal</title>
+  <link rel="stylesheet" href="/src/advanced.css" />
+</head>
+<body>
+  <div class="top-nav">
+    <a class="nav-pill" href="index.html">Főoldal</a>
+    <a class="nav-pill" href="graph.html">Grafikon </a>
+  </div>
+
+  <main class="page-shell">
+    <section class="hero-card">
+      <h1>Matematikai eszközök</h1>
+      <p>Deriválás, integrálás, másod- és harmadfokú egyenletek, szórás, sorozatok és kvartilis számítások. Az oldalt az összes fõ eszközzel egy helyen találod.</p>
+    </section>
+
+    <section class="tool-grid">
+      <article class="tool-card">
+        <h2>Deriválás</h2>
+        <p>Szépített kifejezés deriváltja egy változó szerint.</p>
+        <form id="derivative-form">
+          <label>
+            Kifejezés
+            <input id="derivative-input" type="text" value="x^2 + 3*x" placeholder="Pl. x^2 + 3*x" />
+          </label>
+          <label>
+            Változó
+            <input id="derivative-variable" type="text" value="x" />
+          </label>
+          <button type="submit">Számítás</button>
+        </form>
+        <div class="result-box" id="derivative-result">2*x + 3</div>
+      </article>
+
+      <article class="tool-card">
+        <h2>Határozatlan integrál</h2>
+        <p>Integrálás szimbolikusan, egyszerû kifejezésekhez.</p>
+        <form id="indefinite-form">
+          <label>
+            Kifejezés
+            <input id="indefinite-input" type="text" value="x^2" placeholder="Pl. x^2" />
+          </label>
+          <label>
+            Változó
+            <input id="indefinite-variable" type="text" value="x" />
+          </label>
+          <button type="submit">Számítás</button>
+        </form>
+        <div class="result-box" id="indefinite-result">x^3 / 3</div>
+      </article>
+
+      <article class="tool-card">
+        <h2>Határozott integrál</h2>
+        <p>Definíciós intervallumon számolt terület.</p>
+        <form id="definite-form">
+          <div class="field-row">
+            <label>
+              Kifejezés
+              <input id="definite-input" type="text" value="x" placeholder="Pl. x" />
+            </label>
+            <label>
+              Változó
+              <input id="definite-variable" type="text" value="x" />
+            </label>
+          </div>
+          <div class="field-row">
+            <label>
+              Alsó határ
+              <input id="definite-lower" type="number" value="0" />
+            </label>
+            <label>
+              Felsõ határ
+              <input id="definite-upper" type="number" value="2" />
+            </label>
+          </div>
+          <button type="submit">Számítás</button>
+        </form>
+        <div class="result-box" id="definite-result">2</div>
+      </article>
+
+      <article class="tool-card">
+        <h2>Másodfokú megoldó</h2>
+        <p>Ax2 + bx + c = 0 egyenlet gyökei.</p>
+        <form id="quadratic-form">
+          <div class="field-row">
+            <label>
+              a
+              <input id="quadratic-a" type="number" value="1" />
+            </label>
+            <label>
+              b
+              <input id="quadratic-b" type="number" value="-3" />
+            </label>
+          </div>
+          <div class="field-row">
+            <label>
+              c
+              <input id="quadratic-c" type="number" value="2" />
+            </label>
+            <label>
+              <span style="visibility:hidden">placeholder</span>
+            </label>
+          </div>
+          <button type="submit">Megoldás</button>
+        </form>
+        <div class="result-box" id="quadratic-result">1 , 2</div>
+      </article>
+
+      <article class="tool-card">
+        <h2>Harmadfokú megoldó</h2>
+        <p>ax3 + bx2 + cx + d = 0 gyökök.</p>
+        <form id="cubic-form">
+          <div class="field-row">
+            <label>
+              a
+              <input id="cubic-a" type="number" value="1" />
+            </label>
+            <label>
+              b
+              <input id="cubic-b" type="number" value="-6" />
+            </label>
+          </div>
+          <div class="field-row">
+            <label>
+              c
+              <input id="cubic-c" type="number" value="11" />
+            </label>
+            <label>
+              d
+              <input id="cubic-d" type="number" value="-6" />
+            </label>
+          </div>
+          <button type="submit">Megoldás</button>
+        </form>
+        <div class="result-box" id="cubic-result">1 , 2 , 3</div>
+      </article>
+
+      <article class="tool-card">
+        <h2>Szórás</h2>
+        <p>Számokból számított szórás (népességszórás).</p>
+        <form id="std-form">
+          <label>
+            Számok (vesszővel)
+            <textarea id="std-input" placeholder="1,2,3,4">1,2,3,4</textarea>
+          </label>
+          <button type="submit">Számítás</button>
+        </form>
+        <div class="result-box" id="std-result">1.118034</div>
+      </article>
+
+      <article class="tool-card">
+        <h2>Sorozatok</h2>
+        <p>Számtani és mértani sorozatok n-edik tagja és összegzése.</p>
+        <form id="sequence-form">
+          <div class="field-row">
+            <label>
+              Típus
+              <select id="sequence-type">
+                <option value="arithmetic">Számtani</option>
+                <option value="geometric">Mértani</option>
+              </select>
+            </label>
+            <label>
+              1. elem (a1)
+              <input id="sequence-first" type="number" value="2" />
+            </label>
+          </div>
+          <div class="field-row">
+            <label>
+              Különbség / hányados
+              <input id="sequence-step" type="number" value="3" />
+            </label>
+            <label>
+              n
+              <input id="sequence-n" type="number" value="5" />
+            </label>
+          </div>
+          <button type="submit">Számítás</button>
+        </form>
+        <div class="result-box" id="nth-result">n-edik elem: 14</div>
+        <div class="result-box" id="sum-result">Összeg: 40</div>
+      </article>
+
+      <article class="tool-card">
+        <h2>Távolság és kvartilisek</h2>
+        <p>Adatsor tartománya, minimuma, maximuma, valamint Q1, Q2, Q3 értékei.</p>
+        <form id="quartile-form">
+          <label>
+            Számok (vesszővel)
+            <textarea id="quartile-input" placeholder="1,2,3,4,5,6,7,8">1,2,3,4,5,6,7,8</textarea>
+          </label>
+          <button type="submit">Számítás</button>
+        </form>
+        <div class="result-box" id="quartile-result">Tartomány: 7 | min: 1 | Q1: 2.75 | Q2: 4.5 | Q3: 6.25</div>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="/src/advanced.js"></script>
+</body>
+</html>

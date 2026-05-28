@@ -38,6 +38,17 @@ function updateDisplay() {
   scrollCursorIntoView();
 }
 
+function clearErrorState() {
+  if (expression === 'Hiba') {
+    expression = '';
+    cursorPos = 0;
+    updateDisplay();
+    return true;
+  }
+
+  return false;
+}
+
 function addToHistory(expression, result){
   const historyItem = document.createElement('div');
 
@@ -56,6 +67,8 @@ historyListDel.addEventListener('click', () => {
 });
 
 function appendToExpression(value) {
+  clearErrorState();
+
   expression =
     expression.slice(0, cursorPos) +
     value +
@@ -66,6 +79,7 @@ function appendToExpression(value) {
 }
 
 function deleteAtCursor() {
+  clearErrorState();
   const functionPatterns = ['asin(', 'acos(', 'atan(', 'sin(', 'cos(', 'tan(', 'log(', 'sqrt(', 'cbrt(', 'pow(', 'root('];
 
   if (cursorPos === expression.length) {
@@ -153,6 +167,8 @@ function replaceTrailingOperator(op) {
 }
 
 function handleOperator(op) {
+  clearErrorState();
+
   if (['+', '-', '*', '/', '^'].includes(op)) {
     if (expression === '' && op !== '-') {
       return;
@@ -210,6 +226,10 @@ function handleOperator(op) {
 }
 
 buttons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    clearErrorState();
+  });
+
   const num = btn.getAttribute('data-num');
   const op = btn.getAttribute('data-op');
   const action = btn.getAttribute('data-action');
@@ -267,6 +287,13 @@ buttons.forEach((btn) => {
 
   if (action === 'equals') {
     btn.addEventListener('click', () => {
+      if (expression === 'Hiba') {
+        expression = '';
+        cursorPos = 0;
+        updateDisplay();
+        return;
+      }
+
       const originalExpression = expression;
       const result = calculateExpression(expression);
       const resultStr = isNaN(result) ? 'Hiba' : result.toString();
@@ -296,6 +323,8 @@ updateDisplay();
 
 document.addEventListener('keydown', (e) => {
   const key = e.key;
+
+  clearErrorState();
 
   if (!isNaN(key) && key !== ' ') {
     appendToExpression(key);

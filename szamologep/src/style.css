@@ -39,6 +39,33 @@ body::before {
   z-index: 999;
 }
 
+.top-nav {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 20;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(127, 255, 0, 0.28);
+  background: rgba(8, 16, 8, 0.78);
+  color: #b5ff7d;
+  box-shadow: 0 0 20px rgba(127, 255, 0, 0.14);
+  backdrop-filter: blur(6px);
+}
+
 .title {
   font-family: 'Orbitron', monospace;
   font-weight: 700;
@@ -66,7 +93,7 @@ body::before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 72px 20px 40px;
   gap: 0;
 }
 
