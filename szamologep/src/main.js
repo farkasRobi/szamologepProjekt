@@ -12,6 +12,13 @@ let expression = '';
 let shiftActive = false;
 let cursorPos = 0;
 
+const quadPopup = document.getElementById('quad-popup');
+const quadA = document.getElementById('quad-a');
+const quadB = document.getElementById('quad-b');
+const quadC = document.getElementById('quad-c');
+const quadCalc = document.getElementById('quad-calc');
+const quadClose = document.getElementById('quad-close');
+
 function scrollCursorIntoView() {
   const cursorEl = display.querySelector('.cursor');
   if (!cursorEl) return;
@@ -164,6 +171,16 @@ function handleOperator(op) {
     return;
   }
 
+  if (op === 'quad') {
+    if (quadPopup) {
+      quadPopup.classList.remove('hidden');
+      if (quadA) quadA.value = '';
+      if (quadB) quadB.value = '';
+      if (quadC) quadC.value = '';
+    }
+    return;
+  }
+
   if (expression === '' && ['pow2', 'pow3', 'pow10', 'root'].includes(op)) {
     return;
   }
@@ -291,6 +308,47 @@ buttons.forEach((btn) => {
     });
   }
 });
+
+if (quadCalc) {
+  quadCalc.addEventListener('click', () => {
+    const a = parseFloat(quadA.value);
+    const b = parseFloat(quadB.value);
+    const c = parseFloat(quadC.value);
+
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+      expression = 'Hiba';
+      cursorPos = expression.length;
+      updateDisplay();
+      quadPopup.classList.add('hidden');
+      return;
+    }
+
+    const D = b * b - 4 * a * c;
+    if (D < 0) {
+      expression = 'Nincs megoldás';
+      cursorPos = expression.length;
+      updateDisplay();
+      quadPopup.classList.add('hidden');
+      return;
+    }
+
+    const x1 = (-b + Math.sqrt(D)) / (2 * a);
+    const x2 = (-b - Math.sqrt(D)) / (2 * a);
+
+    addToHistory(`quad: a=${a}, b=${b}, c=${c}`, `x1=${x1}, x2=${x2}`);
+
+    expression = `x1=${x1}, x2=${x2}`;
+    cursorPos = expression.length;
+    updateDisplay();
+    quadPopup.classList.add('hidden');
+  });
+}
+
+if (quadClose) {
+  quadClose.addEventListener('click', () => {
+    quadPopup.classList.add('hidden');
+  });
+}
 
 updateDisplay();
 
